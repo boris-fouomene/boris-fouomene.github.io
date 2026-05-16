@@ -1,1034 +1,1589 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Boris Fouomene — Senior Software Engineer | Full Stack Architect</title>
-    <meta name="description" content="Senior Software Engineer with 12+ years of experience in React, Next.js, NestJS, Node.js, PostgreSQL. Open to remote and relocation opportunities worldwide.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <meta
+      name="description"
+      content="Senior Software Engineer with 12+ years of experience in React, Next.js, NestJS, Node.js, PostgreSQL. Open to remote and relocation opportunities worldwide."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        :root {
-            --bg-primary: #0a0a0f;
-            --bg-secondary: #12121a;
-            --bg-card: #16161f;
-            --bg-hover: #1e1e2e;
-            --text-primary: #f0f0f5;
-            --text-secondary: #a0a0b0;
-            --text-muted: #6c6c7f;
-            --accent: #6366f1;
-            --accent-light: #818cf8;
-            --accent-glow: rgba(99, 102, 241, 0.15);
-            --border: rgba(255,255,255,0.06);
-            --success: #22c55e;
-            --warning: #f59e0b;
+      :root {
+        --bg-primary: #0a0a0f;
+        --bg-secondary: #12121a;
+        --bg-card: #16161f;
+        --bg-hover: #1e1e2e;
+        --text-primary: #f0f0f5;
+        --text-secondary: #a0a0b0;
+        --text-muted: #6c6c7f;
+        --accent: #6366f1;
+        --accent-light: #818cf8;
+        --accent-glow: rgba(99, 102, 241, 0.15);
+        --border: rgba(255, 255, 255, 0.06);
+        --success: #22c55e;
+        --warning: #f59e0b;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family:
+          'Inter',
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+        background: var(--bg-primary);
+        color: var(--text-primary);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      ::selection {
+        background: var(--accent);
+        color: white;
+      }
+
+      /* Scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--bg-primary);
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--accent);
+        border-radius: 4px;
+      }
+
+      /* Navigation */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        background: rgba(10, 10, 15, 0.8);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--border);
+        padding: 1rem 0;
+      }
+
+      .nav-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-weight: 800;
+        font-size: 1.25rem;
+        background: linear-gradient(135deg, var(--text-primary), var(--accent-light));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+      }
+      .nav-links a {
+        color: var(--text-secondary);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 0.9rem;
+        transition: color 0.3s;
+        position: relative;
+      }
+      .nav-links a:hover {
+        color: var(--text-primary);
+      }
+      .nav-links a::after {
+        content: '';
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--accent);
+        transition: width 0.3s;
+      }
+      .nav-links a:hover::after {
+        width: 100%;
+      }
+
+      .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        color: var(--text-primary);
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+
+      /* Hero */
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        padding: 8rem 2rem 4rem;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background:
+          radial-gradient(circle at 20% 50%, var(--accent-glow) 0%, transparent 50%),
+          radial-gradient(circle at 80% 20%, rgba(34, 197, 94, 0.08) 0%, transparent 40%);
+        pointer-events: none;
+      }
+
+      .hero-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: center;
+      }
+
+      .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: rgba(99, 102, 241, 0.1);
+        border: 1px solid rgba(99, 102, 241, 0.2);
+        padding: 0.5rem 1rem;
+        border-radius: 100px;
+        font-size: 0.85rem;
+        color: var(--accent-light);
+        margin-bottom: 1.5rem;
+        font-weight: 500;
+      }
+      .hero-badge .pulse {
+        width: 8px;
+        height: 8px;
+        background: var(--success);
+        border-radius: 50%;
+        animation: pulse 2s infinite;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
         }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        html { scroll-behavior: smooth; }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
-            overflow-x: hidden;
+        50% {
+          opacity: 0.4;
         }
+      }
 
-        ::selection { background: var(--accent); color: white; }
+      .hero h1 {
+        font-size: 3.5rem;
+        font-weight: 800;
+        line-height: 1.1;
+        margin-bottom: 1.5rem;
+        letter-spacing: -0.02em;
+      }
+      .hero h1 .highlight {
+        background: linear-gradient(135deg, var(--accent), var(--accent-light));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
 
-        /* Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg-primary); }
-        ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 4px; }
+      .hero-subtitle {
+        font-size: 1.25rem;
+        color: var(--text-secondary);
+        margin-bottom: 2rem;
+        max-width: 540px;
+      }
 
-        /* Navigation */
-        nav {
-            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-            background: rgba(10,10,15,0.8);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
-            padding: 1rem 0;
-        }
+      .hero-stats {
+        display: flex;
+        gap: 2rem;
+        margin-bottom: 2.5rem;
+      }
+      .stat-item h3 {
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--text-primary);
+      }
+      .stat-item p {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+      }
 
-        .nav-container {
-            max-width: 1200px; margin: 0 auto; padding: 0 2rem;
-            display: flex; justify-content: space-between; align-items: center;
-        }
+      .hero-cta {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.875rem 1.75rem;
+        border-radius: 8px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s;
+        font-size: 0.95rem;
+        border: none;
+        cursor: pointer;
+      }
+      .btn-primary {
+        background: var(--accent);
+        color: white;
+        box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+      }
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 30px rgba(99, 102, 241, 0.4);
+      }
+      .btn-secondary {
+        background: transparent;
+        color: var(--text-primary);
+        border: 1px solid var(--border);
+      }
+      .btn-secondary:hover {
+        background: var(--bg-hover);
+        border-color: var(--accent);
+      }
 
-        .logo {
-            font-weight: 800; font-size: 1.25rem;
-            background: linear-gradient(135deg, var(--text-primary), var(--accent-light));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
+      /* Code window */
+      .code-window {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      }
+      .code-header {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 1rem 1.25rem;
+        border-bottom: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.02);
+      }
+      .dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+      }
+      .dot-red {
+        background: #ef4444;
+      }
+      .dot-yellow {
+        background: #f59e0b;
+      }
+      .dot-green {
+        background: #22c55e;
+      }
+      .code-title {
+        margin-left: 0.5rem;
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        font-family: 'JetBrains Mono', monospace;
+      }
+      .code-body {
+        padding: 1.5rem;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.85rem;
+        line-height: 1.7;
+        color: var(--text-secondary);
+      }
+      .code-body .comment {
+        color: #6c6c7f;
+      }
+      .code-body .keyword {
+        color: #c084fc;
+      }
+      .code-body .string {
+        color: #86efac;
+      }
+      .code-body .function {
+        color: #60a5fa;
+      }
+      .code-body .number {
+        color: #fbbf24;
+      }
 
-        .nav-links { display: flex; gap: 2rem; list-style: none; }
-        .nav-links a {
-            color: var(--text-secondary); text-decoration: none; font-weight: 500;
-            font-size: 0.9rem; transition: color 0.3s; position: relative;
-        }
-        .nav-links a:hover { color: var(--text-primary); }
-        .nav-links a::after {
-            content: ''; position: absolute; bottom: -4px; left: 0;
-            width: 0; height: 2px; background: var(--accent); transition: width 0.3s;
-        }
-        .nav-links a:hover::after { width: 100%; }
+      /* Sections */
+      section {
+        padding: 6rem 2rem;
+      }
+      .section-container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
 
-        .mobile-menu-btn {
-            display: none; background: none; border: none; color: var(--text-primary);
-            font-size: 1.5rem; cursor: pointer;
-        }
+      .section-header {
+        margin-bottom: 3rem;
+      }
+      .section-label {
+        display: inline-block;
+        color: var(--accent);
+        font-weight: 600;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-bottom: 0.75rem;
+      }
+      .section-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+      }
+      .section-desc {
+        color: var(--text-secondary);
+        font-size: 1.1rem;
+        max-width: 600px;
+      }
 
-        /* Hero */
-        .hero {
-            min-height: 100vh; display: flex; align-items: center;
-            padding: 8rem 2rem 4rem; position: relative; overflow: hidden;
-        }
+      /* About */
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        align-items: start;
+      }
+      .about-text {
+        color: var(--text-secondary);
+        font-size: 1.05rem;
+      }
+      .about-text p {
+        margin-bottom: 1rem;
+      }
+      .about-highlights {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+      }
+      .highlight-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        padding: 1.5rem;
+        border-radius: 12px;
+        transition: all 0.3s;
+      }
+      .highlight-card:hover {
+        transform: translateY(-4px);
+        border-color: var(--accent);
+        box-shadow: 0 10px 40px rgba(99, 102, 241, 0.1);
+      }
+      .highlight-card .icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        background: var(--accent-glow);
+        color: var(--accent-light);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+      }
+      .highlight-card h4 {
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+      }
+      .highlight-card p {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+      }
 
-        .hero-bg {
-            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background: 
-                radial-gradient(circle at 20% 50%, var(--accent-glow) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(34,197,94,0.08) 0%, transparent 40%);
-            pointer-events: none;
-        }
+      /* Skills */
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+      }
+      .skill-category {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 1.75rem;
+      }
+      .skill-category h3 {
+        font-size: 1.1rem;
+        margin-bottom: 1.25rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+      .skill-category h3 .cat-icon {
+        font-size: 1.25rem;
+      }
 
+      .skill-item {
+        margin-bottom: 1rem;
+      }
+      .skill-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 0.4rem;
+        font-size: 0.9rem;
+      }
+      .skill-name {
+        color: var(--text-secondary);
+      }
+      .skill-level {
+        color: var(--text-muted);
+        font-size: 0.8rem;
+      }
+      .skill-bar {
+        height: 6px;
+        background: var(--bg-hover);
+        border-radius: 3px;
+        overflow: hidden;
+      }
+      .skill-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--accent), var(--accent-light));
+        border-radius: 3px;
+        transition: width 1s ease;
+      }
+
+      .tech-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 1.5rem;
+      }
+      .tech-tag {
+        background: var(--bg-hover);
+        color: var(--text-secondary);
+        padding: 0.4rem 0.9rem;
+        border-radius: 6px;
+        font-size: 0.85rem;
+        border: 1px solid var(--border);
+        transition: all 0.3s;
+      }
+      .tech-tag:hover {
+        background: var(--accent);
+        color: white;
+        border-color: var(--accent);
+      }
+
+      /* Experience */
+      .timeline {
+        position: relative;
+        padding-left: 2rem;
+      }
+      .timeline::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: linear-gradient(180deg, var(--accent), transparent);
+      }
+      .timeline-item {
+        position: relative;
+        padding-bottom: 3rem;
+      }
+      .timeline-item::before {
+        content: '';
+        position: absolute;
+        left: -2rem;
+        top: 0.5rem;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: var(--accent);
+        border: 3px solid var(--bg-primary);
+        box-shadow: 0 0 0 3px var(--accent-glow);
+      }
+      .timeline-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 0.5rem;
+      }
+      .timeline-role {
+        font-size: 1.2rem;
+        font-weight: 700;
+      }
+      .timeline-date {
+        font-size: 0.85rem;
+        color: var(--accent-light);
+        font-weight: 500;
+      }
+      .timeline-company {
+        color: var(--text-secondary);
+        font-size: 0.95rem;
+        margin-bottom: 0.75rem;
+      }
+      .timeline-desc {
+        color: var(--text-muted);
+        font-size: 0.95rem;
+        line-height: 1.7;
+      }
+      .timeline-desc ul {
+        margin-left: 1.25rem;
+        margin-top: 0.5rem;
+      }
+      .timeline-desc li {
+        margin-bottom: 0.4rem;
+      }
+      .timeline-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        margin-top: 0.75rem;
+      }
+      .timeline-tag {
+        font-size: 0.75rem;
+        background: var(--bg-hover);
+        color: var(--text-muted);
+        padding: 0.2rem 0.6rem;
+        border-radius: 4px;
+      }
+
+      /* Projects */
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+        gap: 1.5rem;
+      }
+      .project-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        overflow: hidden;
+        transition: all 0.3s;
+        display: flex;
+        flex-direction: column;
+      }
+      .project-card:hover {
+        transform: translateY(-6px);
+        border-color: var(--accent);
+        box-shadow: 0 20px 50px rgba(99, 102, 241, 0.12);
+      }
+      .project-header {
+        padding: 1.5rem 1.5rem 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+      }
+      .project-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        background: var(--accent-glow);
+        color: var(--accent-light);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+      }
+      .project-links {
+        display: flex;
+        gap: 0.75rem;
+      }
+      .project-links a {
+        color: var(--text-muted);
+        text-decoration: none;
+        font-size: 1.1rem;
+        transition: color 0.3s;
+      }
+      .project-links a:hover {
+        color: var(--text-primary);
+      }
+
+      .project-body {
+        padding: 1rem 1.5rem 1.5rem;
+        flex: 1;
+      }
+      .project-body h3 {
+        font-size: 1.15rem;
+        margin-bottom: 0.5rem;
+      }
+      .project-body p {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        line-height: 1.6;
+      }
+
+      .project-footer {
+        padding: 0 1.5rem 1.5rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+      .project-tech {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        background: var(--bg-hover);
+        padding: 0.25rem 0.6rem;
+        border-radius: 4px;
+      }
+
+      /* Contact */
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        align-items: center;
+      }
+      .contact-info h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+      }
+      .contact-info p {
+        color: var(--text-secondary);
+        margin-bottom: 2rem;
+      }
+      .contact-links {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .contact-link {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem 1.25rem;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        text-decoration: none;
+        color: var(--text-primary);
+        transition: all 0.3s;
+      }
+      .contact-link:hover {
+        border-color: var(--accent);
+        background: var(--bg-hover);
+        transform: translateX(4px);
+      }
+      .contact-link .link-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        background: var(--accent-glow);
+        color: var(--accent-light);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .contact-link .link-text {
+        font-weight: 600;
+      }
+      .contact-link .link-sub {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+      }
+
+      .availability-card {
+        background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(34, 197, 94, 0.05));
+        border: 1px solid rgba(99, 102, 241, 0.2);
+        border-radius: 16px;
+        padding: 2rem;
+      }
+      .availability-card h4 {
+        margin-bottom: 1rem;
+        font-size: 1.1rem;
+      }
+      .availability-item {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 0.75rem;
+        color: var(--text-secondary);
+        font-size: 0.95rem;
+      }
+      .availability-item .check {
+        color: var(--success);
+        font-weight: 700;
+      }
+
+      /* Footer */
+      footer {
+        border-top: 1px solid var(--border);
+        padding: 3rem 2rem;
+        text-align: center;
+        color: var(--text-muted);
+        font-size: 0.9rem;
+      }
+
+      /* Responsive */
+      @media (max-width: 900px) {
         .hero-container {
-            max-width: 1200px; margin: 0 auto; width: 100%;
-            display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+          grid-template-columns: 1fr;
         }
-
-        .hero-badge {
-            display: inline-flex; align-items: center; gap: 0.5rem;
-            background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.2);
-            padding: 0.5rem 1rem; border-radius: 100px; font-size: 0.85rem;
-            color: var(--accent-light); margin-bottom: 1.5rem; font-weight: 500;
-        }
-        .hero-badge .pulse {
-            width: 8px; height: 8px; background: var(--success); border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.4; }
-        }
-
         .hero h1 {
-            font-size: 3.5rem; font-weight: 800; line-height: 1.1;
-            margin-bottom: 1.5rem; letter-spacing: -0.02em;
+          font-size: 2.5rem;
         }
-        .hero h1 .highlight {
-            background: linear-gradient(135deg, var(--accent), var(--accent-light));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
-
-        .hero-subtitle {
-            font-size: 1.25rem; color: var(--text-secondary); margin-bottom: 2rem;
-            max-width: 540px;
-        }
-
-        .hero-stats {
-            display: flex; gap: 2rem; margin-bottom: 2.5rem;
-        }
-        .stat-item h3 { font-size: 2rem; font-weight: 800; color: var(--text-primary); }
-        .stat-item p { font-size: 0.85rem; color: var(--text-muted); }
-
-        .hero-cta {
-            display: flex; gap: 1rem; flex-wrap: wrap;
-        }
-        .btn {
-            display: inline-flex; align-items: center; gap: 0.5rem;
-            padding: 0.875rem 1.75rem; border-radius: 8px; font-weight: 600;
-            text-decoration: none; transition: all 0.3s; font-size: 0.95rem;
-            border: none; cursor: pointer;
-        }
-        .btn-primary {
-            background: var(--accent); color: white;
-            box-shadow: 0 4px 20px rgba(99,102,241,0.3);
-        }
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(99,102,241,0.4);
-        }
-        .btn-secondary {
-            background: transparent; color: var(--text-primary);
-            border: 1px solid var(--border);
-        }
-        .btn-secondary:hover {
-            background: var(--bg-hover); border-color: var(--accent);
-        }
-
-        /* Code window */
         .code-window {
-            background: var(--bg-secondary); border: 1px solid var(--border);
-            border-radius: 16px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+          display: none;
         }
-        .code-header {
-            display: flex; align-items: center; gap: 0.5rem; padding: 1rem 1.25rem;
-            border-bottom: 1px solid var(--border); background: rgba(255,255,255,0.02);
+        .about-grid,
+        .contact-grid {
+          grid-template-columns: 1fr;
         }
-        .dot { width: 12px; height: 12px; border-radius: 50%; }
-        .dot-red { background: #ef4444; } .dot-yellow { background: #f59e0b; } .dot-green { background: #22c55e; }
-        .code-title { margin-left: 0.5rem; font-size: 0.8rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; }
-        .code-body {
-            padding: 1.5rem; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem;
-            line-height: 1.7; color: var(--text-secondary);
+        .nav-links {
+          display: none;
         }
-        .code-body .comment { color: #6c6c7f; }
-        .code-body .keyword { color: #c084fc; }
-        .code-body .string { color: #86efac; }
-        .code-body .function { color: #60a5fa; }
-        .code-body .number { color: #fbbf24; }
+        .mobile-menu-btn {
+          display: block;
+        }
+        .hero-stats {
+          gap: 1.5rem;
+        }
+        .stat-item h3 {
+          font-size: 1.5rem;
+        }
+      }
 
-        /* Sections */
-        section { padding: 6rem 2rem; }
-        .section-container { max-width: 1200px; margin: 0 auto; }
-
-        .section-header {
-            margin-bottom: 3rem;
-        }
-        .section-label {
-            display: inline-block; color: var(--accent); font-weight: 600;
-            font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em;
-            margin-bottom: 0.75rem;
+      @media (max-width: 600px) {
+        .hero h1 {
+          font-size: 2rem;
         }
         .section-title {
-            font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem;
+          font-size: 1.75rem;
         }
-        .section-desc { color: var(--text-secondary); font-size: 1.1rem; max-width: 600px; }
-
-        /* About */
-        .about-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start;
-        }
-        .about-text { color: var(--text-secondary); font-size: 1.05rem; }
-        .about-text p { margin-bottom: 1rem; }
-        .about-highlights {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
-        }
-        .highlight-card {
-            background: var(--bg-card); border: 1px solid var(--border);
-            padding: 1.5rem; border-radius: 12px; transition: all 0.3s;
-        }
-        .highlight-card:hover {
-            transform: translateY(-4px); border-color: var(--accent);
-            box-shadow: 0 10px 40px rgba(99,102,241,0.1);
-        }
-        .highlight-card .icon {
-            width: 40px; height: 40px; border-radius: 10px;
-            background: var(--accent-glow); color: var(--accent-light);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.25rem; margin-bottom: 1rem;
-        }
-        .highlight-card h4 { font-size: 1rem; margin-bottom: 0.5rem; }
-        .highlight-card p { font-size: 0.9rem; color: var(--text-muted); }
-
-        /* Skills */
-        .skills-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;
-        }
-        .skill-category {
-            background: var(--bg-card); border: 1px solid var(--border);
-            border-radius: 16px; padding: 1.75rem;
-        }
-        .skill-category h3 {
-            font-size: 1.1rem; margin-bottom: 1.25rem;
-            display: flex; align-items: center; gap: 0.75rem;
-        }
-        .skill-category h3 .cat-icon { font-size: 1.25rem; }
-
-        .skill-item { margin-bottom: 1rem; }
-        .skill-header { display: flex; justify-content: space-between; margin-bottom: 0.4rem; font-size: 0.9rem; }
-        .skill-name { color: var(--text-secondary); }
-        .skill-level { color: var(--text-muted); font-size: 0.8rem; }
-        .skill-bar {
-            height: 6px; background: var(--bg-hover); border-radius: 3px; overflow: hidden;
-        }
-        .skill-fill {
-            height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-light));
-            border-radius: 3px; transition: width 1s ease;
-        }
-
-        .tech-tags {
-            display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem;
-        }
-        .tech-tag {
-            background: var(--bg-hover); color: var(--text-secondary);
-            padding: 0.4rem 0.9rem; border-radius: 6px; font-size: 0.85rem;
-            border: 1px solid var(--border); transition: all 0.3s;
-        }
-        .tech-tag:hover { background: var(--accent); color: white; border-color: var(--accent); }
-
-        /* Experience */
-        .timeline {
-            position: relative; padding-left: 2rem;
-        }
-        .timeline::before {
-            content: ''; position: absolute; left: 0; top: 0; bottom: 0;
-            width: 2px; background: linear-gradient(180deg, var(--accent), transparent);
-        }
-        .timeline-item {
-            position: relative; padding-bottom: 3rem;
-        }
-        .timeline-item::before {
-            content: ''; position: absolute; left: -2rem; top: 0.5rem;
-            width: 12px; height: 12px; border-radius: 50%; background: var(--accent);
-            border: 3px solid var(--bg-primary); box-shadow: 0 0 0 3px var(--accent-glow);
-        }
-        .timeline-header {
-            display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.5rem;
-            margin-bottom: 0.5rem;
-        }
-        .timeline-role { font-size: 1.2rem; font-weight: 700; }
-        .timeline-date { font-size: 0.85rem; color: var(--accent-light); font-weight: 500; }
-        .timeline-company { color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 0.75rem; }
-        .timeline-desc { color: var(--text-muted); font-size: 0.95rem; line-height: 1.7; }
-        .timeline-desc ul { margin-left: 1.25rem; margin-top: 0.5rem; }
-        .timeline-desc li { margin-bottom: 0.4rem; }
-        .timeline-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.75rem; }
-        .timeline-tag {
-            font-size: 0.75rem; background: var(--bg-hover); color: var(--text-muted);
-            padding: 0.2rem 0.6rem; border-radius: 4px;
-        }
-
-        /* Projects */
         .projects-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1.5rem;
+          grid-template-columns: 1fr;
         }
-        .project-card {
-            background: var(--bg-card); border: 1px solid var(--border);
-            border-radius: 16px; overflow: hidden; transition: all 0.3s;
-            display: flex; flex-direction: column;
+        .about-highlights {
+          grid-template-columns: 1fr;
         }
-        .project-card:hover {
-            transform: translateY(-6px); border-color: var(--accent);
-            box-shadow: 0 20px 50px rgba(99,102,241,0.12);
-        }
-        .project-header {
-            padding: 1.5rem 1.5rem 0;
-            display: flex; justify-content: space-between; align-items: flex-start;
-        }
-        .project-icon {
-            width: 48px; height: 48px; border-radius: 12px;
-            background: var(--accent-glow); color: var(--accent-light);
-            display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
-        }
-        .project-links { display: flex; gap: 0.75rem; }
-        .project-links a {
-            color: var(--text-muted); text-decoration: none; font-size: 1.1rem;
-            transition: color 0.3s;
-        }
-        .project-links a:hover { color: var(--text-primary); }
+      }
 
-        .project-body { padding: 1rem 1.5rem 1.5rem; flex: 1; }
-        .project-body h3 { font-size: 1.15rem; margin-bottom: 0.5rem; }
-        .project-body p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; }
-
-        .project-footer {
-            padding: 0 1.5rem 1.5rem;
-            display: flex; flex-wrap: wrap; gap: 0.5rem;
+      /* Animations */
+      .fade-in {
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeIn 0.8s ease forwards;
+      }
+      @keyframes fadeIn {
+        to {
+          opacity: 1;
+          transform: translateY(0);
         }
-        .project-tech {
-            font-size: 0.8rem; color: var(--text-muted);
-            background: var(--bg-hover); padding: 0.25rem 0.6rem; border-radius: 4px;
-        }
-
-        /* Contact */
-        .contact-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
-        }
-        .contact-info h3 { font-size: 1.5rem; margin-bottom: 1rem; }
-        .contact-info p { color: var(--text-secondary); margin-bottom: 2rem; }
-        .contact-links { display: flex; flex-direction: column; gap: 1rem; }
-        .contact-link {
-            display: flex; align-items: center; gap: 1rem;
-            padding: 1rem 1.25rem; background: var(--bg-card);
-            border: 1px solid var(--border); border-radius: 12px;
-            text-decoration: none; color: var(--text-primary);
-            transition: all 0.3s;
-        }
-        .contact-link:hover {
-            border-color: var(--accent); background: var(--bg-hover);
-            transform: translateX(4px);
-        }
-        .contact-link .link-icon {
-            width: 40px; height: 40px; border-radius: 10px;
-            background: var(--accent-glow); color: var(--accent-light);
-            display: flex; align-items: center; justify-content: center;
-        }
-        .contact-link .link-text { font-weight: 600; }
-        .contact-link .link-sub { font-size: 0.85rem; color: var(--text-muted); }
-
-        .availability-card {
-            background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(34,197,94,0.05));
-            border: 1px solid rgba(99,102,241,0.2); border-radius: 16px; padding: 2rem;
-        }
-        .availability-card h4 { margin-bottom: 1rem; font-size: 1.1rem; }
-        .availability-item {
-            display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;
-            color: var(--text-secondary); font-size: 0.95rem;
-        }
-        .availability-item .check { color: var(--success); font-weight: 700; }
-
-        /* Footer */
-        footer {
-            border-top: 1px solid var(--border); padding: 3rem 2rem;
-            text-align: center; color: var(--text-muted); font-size: 0.9rem;
-        }
-
-        /* Responsive */
-        @media (max-width: 900px) {
-            .hero-container { grid-template-columns: 1fr; }
-            .hero h1 { font-size: 2.5rem; }
-            .code-window { display: none; }
-            .about-grid, .contact-grid { grid-template-columns: 1fr; }
-            .nav-links { display: none; }
-            .mobile-menu-btn { display: block; }
-            .hero-stats { gap: 1.5rem; }
-            .stat-item h3 { font-size: 1.5rem; }
-        }
-
-        @media (max-width: 600px) {
-            .hero h1 { font-size: 2rem; }
-            .section-title { font-size: 1.75rem; }
-            .projects-grid { grid-template-columns: 1fr; }
-            .about-highlights { grid-template-columns: 1fr; }
-        }
-
-        /* Animations */
-        .fade-in {
-            opacity: 0; transform: translateY(30px);
-            animation: fadeIn 0.8s ease forwards;
-        }
-        @keyframes fadeIn {
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .delay-1 { animation-delay: 0.1s; }
-        .delay-2 { animation-delay: 0.2s; }
-        .delay-3 { animation-delay: 0.3s; }
+      }
+      .delay-1 {
+        animation-delay: 0.1s;
+      }
+      .delay-2 {
+        animation-delay: 0.2s;
+      }
+      .delay-3 {
+        animation-delay: 0.3s;
+      }
     </style>
-<base target="_blank">
-</head>
-<body>
-
+    <base target="_blank" />
+  </head>
+  <body>
     <!-- Navigation -->
     <nav>
-        <div class="nav-container">
-            <div class="logo">Boris.dev</div>
-            <ul class="nav-links">
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            <button class="mobile-menu-btn" onclick="document.querySelector('.nav-links').classList.toggle('active')">☰</button>
-        </div>
+      <div class="nav-container">
+        <div class="logo">Boris.dev</div>
+        <ul class="nav-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button
+          class="mobile-menu-btn"
+          onclick="document.querySelector('.nav-links').classList.toggle('active')"
+        >
+          ☰
+        </button>
+      </div>
     </nav>
 
     <!-- Hero -->
     <section class="hero">
-        <div class="hero-bg"></div>
-        <div class="hero-container">
-            <div class="hero-content fade-in">
-                <div class="hero-badge">
-                    <span class="pulse"></span>
-                    Open to Remote & Relocation — Worldwide
-                </div>
-                <h1>
-                    Senior Software<br>
-                    <span class="highlight">Engineer & Architect</span>
-                </h1>
-                <p class="hero-subtitle">
-                    12+ years building scalable fintech, logistics, and enterprise systems. 
-                    React · Next.js · NestJS · Node.js · PostgreSQL · React Native · AWS
-                </p>
-                <div class="hero-stats">
-                    <div class="stat-item">
-                        <h3>12+</h3>
-                        <p>Years Experience</p>
-                    </div>
-                    <div class="stat-item">
-                        <h3>50K+</h3>
-                        <p>Active Users Served</p>
-                    </div>
-                    <div class="stat-item">
-                        <h3>20+</h3>
-                        <p>Shipped Products</p>
-                    </div>
-                </div>
-                <div class="hero-cta">
-                    <a href="#contact" class="btn btn-primary">Hire Me →</a>
-                    <a href="https://github.com/borisfouomene" target="_blank" class="btn btn-secondary">View GitHub</a>
-                    <a href="https://linkedin.com/in/boris-fouomene" target="_blank" class="btn btn-secondary">LinkedIn</a>
-                </div>
+      <div class="hero-bg"></div>
+      <div class="hero-container">
+        <div class="hero-content fade-in">
+          <div class="hero-badge">
+            <span class="pulse"></span>
+            Open to Remote & Relocation — Worldwide
+          </div>
+          <h1>
+            Senior Software<br />
+            <span class="highlight">Engineer & Architect</span>
+          </h1>
+          <p class="hero-subtitle">
+            12+ years building scalable fintech, logistics, and enterprise systems. React · Next.js
+            · NestJS · Node.js · PostgreSQL · React Native · AWS
+          </p>
+          <div class="hero-stats">
+            <div class="stat-item">
+              <h3>12+</h3>
+              <p>Years Experience</p>
             </div>
-
-            <div class="code-window fade-in delay-2">
-                <div class="code-header">
-                    <span class="dot dot-red"></span>
-                    <span class="dot dot-yellow"></span>
-                    <span class="dot dot-green"></span>
-                    <span class="code-title">boris@portfolio:~$ cat about.ts</span>
-                </div>
-                <div class="code-body">
-<span class="keyword">const</span> <span class="function">engineer</span> = {<br>
-&nbsp;&nbsp;name: <span class="string">"Boris Fouomene"</span>,<br>
-&nbsp;&nbsp;role: <span class="string">"Senior Full Stack Engineer"</span>,<br>
-&nbsp;&nbsp;status: <span class="string">"Open to Work"</span>,<br>
-&nbsp;&nbsp;stack: [<span class="string">"TypeScript"</span>, <span class="string">"React"</span>, <span class="string">"Next.js"</span>,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"NestJS"</span>, <span class="string">"Node.js"</span>, <span class="string">"PostgreSQL"</span>],<br>
-&nbsp;&nbsp;mobility: <span class="string">"EU Blue Card Eligible"</span>,<br>
-&nbsp;&nbsp;impact: {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;users: <span class="number">50000</span>,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;errorReduction: <span class="string">"-70%"</span>,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;teamProductivity: <span class="string">"+50%"</span><br>
-&nbsp;&nbsp;}<br>
-};
-                </div>
+            <div class="stat-item">
+              <h3>50K+</h3>
+              <p>Active Users Served</p>
             </div>
+            <div class="stat-item">
+              <h3>20+</h3>
+              <p>Shipped Products</p>
+            </div>
+          </div>
+          <div class="hero-cta">
+            <a href="#contact" class="btn btn-primary">Hire Me →</a>
+            <a href="https://github.com/borisfouomene" target="_blank" class="btn btn-secondary"
+              >View GitHub</a
+            >
+            <a
+              href="https://linkedin.com/in/boris-fouomene"
+              target="_blank"
+              class="btn btn-secondary"
+              >LinkedIn</a
+            >
+          </div>
         </div>
+
+        <div class="code-window fade-in delay-2">
+          <div class="code-header">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+            <span class="code-title">boris@portfolio:~$ cat about.ts</span>
+          </div>
+          <div class="code-body">
+            <span class="keyword">const</span> <span class="function">engineer</span> = {<br />
+            &nbsp;&nbsp;name: <span class="string">"Boris Fouomene"</span>,<br />
+            &nbsp;&nbsp;role: <span class="string">"Senior Full Stack Engineer"</span>,<br />
+            &nbsp;&nbsp;status: <span class="string">"Open to Work"</span>,<br />
+            &nbsp;&nbsp;stack: [<span class="string">"TypeScript"</span>,
+            <span class="string">"React"</span>, <span class="string">"Next.js"</span>,<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string"
+              >"NestJS"</span
+            >, <span class="string">"Node.js"</span>,
+            <span class="string">"PostgreSQL"</span>],<br />
+            &nbsp;&nbsp;impact: {<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;users: <span class="number">50000</span>,<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;errorReduction: <span class="string">"-70%"</span>,<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;teamProductivity: <span class="string">"+50%"</span><br />
+            &nbsp;&nbsp;}<br />
+            };
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- About -->
     <section id="about">
-        <div class="section-container">
-            <div class="section-header fade-in">
-                <span class="section-label">About Me</span>
-                <h2 class="section-title">Engineering Leader & Problem Solver</h2>
-                <p class="section-desc">I bridge business needs and technical execution across fintech, logistics, and enterprise systems.</p>
-            </div>
-
-            <div class="about-grid">
-                <div class="about-text fade-in">
-                    <p>
-                        I am a <strong>Senior Software Engineer</strong> with over 12 years of hands-on experience designing, building, and scaling mission-critical applications. My career spans fintech transaction platforms, logistics automation, enterprise ERP integrations, and cross-platform mobile solutions.
-                    </p>
-                    <p>
-                        I have led teams of developers, established CI/CD pipelines, and reduced production errors by <strong>70%</strong> through robust architecture and automated testing. I am equally comfortable architecting a NestJS microservice as I am optimizing a React Native app for 50,000+ daily users.
-                    </p>
-                    <p>
-                        Currently based in Cameroon, I am <strong>actively seeking senior or lead roles worldwide</strong> — remote, hybrid, or on-site with relocation support. I hold verified international academic qualifications (WES) and am eligible for fast-track work permits including the <strong>EU Blue Card</strong>.
-                    </p>
-                </div>
-
-                <div class="about-highlights fade-in delay-2">
-                    <div class="highlight-card">
-                        <div class="icon">⚡</div>
-                        <h4>Performance First</h4>
-                        <p>Optimized systems serving 50K+ users with sub-second response times.</p>
-                    </div>
-                    <div class="highlight-card">
-                        <div class="icon">🛡️</div>
-                        <h4>Security & Compliance</h4>
-                        <p>Bank-level security (AES-256, MFA) for fintech and voting platforms.</p>
-                    </div>
-                    <div class="highlight-card">
-                        <div class="icon">🌍</div>
-                        <h4>Global Mindset</h4>
-                        <p>Worked with clients across Africa, North America, and Europe.</p>
-                    </div>
-                    <div class="highlight-card">
-                        <div class="icon">🚀</div>
-                        <h4>AI-Accelerated</h4>
-                        <p>Leverage modern AI tooling to ship faster without sacrificing quality.</p>
-                    </div>
-                </div>
-            </div>
+      <div class="section-container">
+        <div class="section-header fade-in">
+          <span class="section-label">About Me</span>
+          <h2 class="section-title">Engineering Leader & Problem Solver</h2>
+          <p class="section-desc">
+            I bridge business needs and technical execution across fintech, logistics, and
+            enterprise systems.
+          </p>
         </div>
+
+        <div class="about-grid">
+          <div class="about-text fade-in">
+            <p>
+              I am a <strong>Senior Software Engineer</strong> with over 12 years of hands-on
+              experience designing, building, and scaling mission-critical applications. My career
+              spans fintech transaction platforms, logistics automation, enterprise ERP
+              integrations, and cross-platform mobile solutions.
+            </p>
+            <p>
+              I have led teams of developers, established CI/CD pipelines, and reduced production
+              errors by <strong>70%</strong> through robust architecture and automated testing. I am
+              equally comfortable architecting a NestJS microservice as I am optimizing a React
+              Native app for 50,000+ daily users.
+            </p>
+            <p>
+              I am
+              <strong>actively seeking senior or lead roles worldwide</strong> — remote, hybrid, or
+              on-site with relocation support.
+            </p>
+          </div>
+
+          <div class="about-highlights fade-in delay-2">
+            <div class="highlight-card">
+              <div class="icon">⚡</div>
+              <h4>Performance First</h4>
+              <p>Optimized systems serving 50K+ users with sub-second response times.</p>
+            </div>
+            <div class="highlight-card">
+              <div class="icon">🛡️</div>
+              <h4>Security & Compliance</h4>
+              <p>Bank-level security (AES-256, MFA) for fintech and voting platforms.</p>
+            </div>
+            <div class="highlight-card">
+              <div class="icon">🌍</div>
+              <h4>Global Mindset</h4>
+              <p>Worked with clients across Africa, North America, and Europe.</p>
+            </div>
+            <div class="highlight-card">
+              <div class="icon">🚀</div>
+              <h4>AI-Accelerated</h4>
+              <p>Leverage modern AI tooling to ship faster without sacrificing quality.</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Skills -->
-    <section id="skills" style="background: var(--bg-secondary);">
-        <div class="section-container">
-            <div class="section-header fade-in">
-                <span class="section-label">Technical Arsenal</span>
-                <h2 class="section-title">Skills & Technologies</h2>
-                <p class="section-desc">Modern stack focused on TypeScript, performance, and scalable architecture.</p>
-            </div>
-
-            <div class="skills-grid fade-in">
-                <div class="skill-category">
-                    <h3><span class="cat-icon">💻</span> Frontend</h3>
-                    <div class="skill-item">
-                        <div class="skill-header"><span class="skill-name">React / Next.js 15</span><span class="skill-level">Expert</span></div>
-                        <div class="skill-bar"><div class="skill-fill" style="width: 95%"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-header"><span class="skill-name">TypeScript</span><span class="skill-level">Expert</span></div>
-                        <div class="skill-bar"><div class="skill-fill" style="width: 95%"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-header"><span class="skill-name">React Native / Expo</span><span class="skill-level">Advanced</span></div>
-                        <div class="skill-bar"><div class="skill-fill" style="width: 88%"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-header"><span class="skill-name">Tailwind CSS v4</span><span class="skill-level">Expert</span></div>
-                        <div class="skill-bar"><div class="skill-fill" style="width: 92%"></div></div>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <h3><span class="cat-icon">⚙️</span> Backend</h3>
-                    <div class="skill-item">
-                        <div class="skill-header"><span class="skill-name">NestJS / Node.js</span><span class="skill-level">Expert</span></div>
-                        <div class="skill-bar"><div class="skill-fill" style="width: 95%"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-header"><span class="skill-name">REST & GraphQL APIs</span><span class="skill-level">Expert</span></div>
-                        <div class="skill-bar"><div class="skill-fill" style="width: 90%"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-header"><span class="skill-name">Microservices</span><span class="skill-level">Advanced</span></div>
-                        <div class="skill-bar"><div class="skill-fill" style="width: 82%"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-header"><span class="skill-name">C# / .NET</span><span class="skill-level">Proficient</span></div>
-                        <div class="skill-bar"><div class="skill-fill" style="width: 75%"></div></div>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <h3><span class="cat-icon">🗄️</span> Data & Cloud</h3>
-                    <div class="skill-item">
-                        <div class="skill-header"><span class="skill-name">PostgreSQL / Prisma</span><span class="skill-level">Expert</span></div>
-                        <div class="skill-bar"><div class="skill-fill" style="width: 90%"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-header"><span class="skill-name">MongoDB / Redis</span><span class="skill-level">Advanced</span></div>
-                        <div class="skill-bar"><div class="skill-fill" style="width: 80%"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-header"><span class="skill-name">AWS (EC2, S3, Lambda)</span><span class="skill-level">Advanced</span></div>
-                        <div class="skill-bar"><div class="skill-fill" style="width: 78%"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-header"><span class="skill-name">GCP (Cloud Run, Vision)</span><span class="skill-level">Proficient</span></div>
-                        <div class="skill-bar"><div class="skill-fill" style="width: 72%"></div></div>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <h3><span class="cat-icon">🚀</span> DevOps & Tools</h3>
-                    <div class="skill-item">
-                        <div class="skill-header"><span class="skill-name">Docker / Nginx</span><span class="skill-level">Advanced</span></div>
-                        <div class="skill-bar"><div class="skill-fill" style="width: 85%"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-header"><span class="skill-name">CI/CD (GitHub Actions)</span><span class="skill-level">Advanced</span></div>
-                        <div class="skill-bar"><div class="skill-fill" style="width: 82%"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-header"><span class="skill-name">Git / GitHub / GitLab</span><span class="skill-level">Expert</span></div>
-                        <div class="skill-bar"><div class="skill-fill" style="width: 92%"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-header"><span class="skill-name">Agile / Scrum / Leadership</span><span class="skill-level">Expert</span></div>
-                        <div class="skill-bar"><div class="skill-fill" style="width: 90%"></div></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="tech-tags fade-in delay-2" style="margin-top: 2rem;">
-                <span class="tech-tag">TypeScript</span>
-                <span class="tech-tag">React 19</span>
-                <span class="tech-tag">Next.js 15</span>
-                <span class="tech-tag">NestJS</span>
-                <span class="tech-tag">Node.js</span>
-                <span class="tech-tag">Express</span>
-                <span class="tech-tag">GraphQL</span>
-                <span class="tech-tag">PostgreSQL</span>
-                <span class="tech-tag">Prisma</span>
-                <span class="tech-tag">MongoDB</span>
-                <span class="tech-tag">Redis</span>
-                <span class="tech-tag">React Native</span>
-                <span class="tech-tag">Expo</span>
-                <span class="tech-tag">Tailwind CSS</span>
-                <span class="tech-tag">Docker</span>
-                <span class="tech-tag">AWS</span>
-                <span class="tech-tag">GCP</span>
-                <span class="tech-tag">Nginx</span>
-                <span class="tech-tag">CI/CD</span>
-                <span class="tech-tag">Linux</span>
-                <span class="tech-tag">C#</span>
-                <span class="tech-tag">.NET</span>
-                <span class="tech-tag">VBA</span>
-                <span class="tech-tag">Sage FTC</span>
-            </div>
+    <section id="skills" style="background: var(--bg-secondary)">
+      <div class="section-container">
+        <div class="section-header fade-in">
+          <span class="section-label">Technical Arsenal</span>
+          <h2 class="section-title">Skills & Technologies</h2>
+          <p class="section-desc">
+            Modern stack focused on TypeScript, performance, and scalable architecture.
+          </p>
         </div>
+
+        <div class="skills-grid fade-in">
+          <div class="skill-category">
+            <h3><span class="cat-icon">💻</span> Frontend</h3>
+            <div class="skill-item">
+              <div class="skill-header">
+                <span class="skill-name">React / Next.js 15</span
+                ><span class="skill-level">Expert</span>
+              </div>
+              <div class="skill-bar"><div class="skill-fill" style="width: 95%"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-header">
+                <span class="skill-name">TypeScript</span><span class="skill-level">Expert</span>
+              </div>
+              <div class="skill-bar"><div class="skill-fill" style="width: 95%"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-header">
+                <span class="skill-name">React Native / Expo</span
+                ><span class="skill-level">Advanced</span>
+              </div>
+              <div class="skill-bar"><div class="skill-fill" style="width: 88%"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-header">
+                <span class="skill-name">Tailwind CSS v4</span
+                ><span class="skill-level">Expert</span>
+              </div>
+              <div class="skill-bar"><div class="skill-fill" style="width: 92%"></div></div>
+            </div>
+          </div>
+
+          <div class="skill-category">
+            <h3><span class="cat-icon">⚙️</span> Backend</h3>
+            <div class="skill-item">
+              <div class="skill-header">
+                <span class="skill-name">NestJS / Node.js</span
+                ><span class="skill-level">Expert</span>
+              </div>
+              <div class="skill-bar"><div class="skill-fill" style="width: 95%"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-header">
+                <span class="skill-name">REST & GraphQL APIs</span
+                ><span class="skill-level">Expert</span>
+              </div>
+              <div class="skill-bar"><div class="skill-fill" style="width: 90%"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-header">
+                <span class="skill-name">Microservices</span
+                ><span class="skill-level">Advanced</span>
+              </div>
+              <div class="skill-bar"><div class="skill-fill" style="width: 82%"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-header">
+                <span class="skill-name">C# / .NET</span><span class="skill-level">Proficient</span>
+              </div>
+              <div class="skill-bar"><div class="skill-fill" style="width: 75%"></div></div>
+            </div>
+          </div>
+
+          <div class="skill-category">
+            <h3><span class="cat-icon">🗄️</span> Data & Cloud</h3>
+            <div class="skill-item">
+              <div class="skill-header">
+                <span class="skill-name">PostgreSQL / Prisma</span
+                ><span class="skill-level">Expert</span>
+              </div>
+              <div class="skill-bar"><div class="skill-fill" style="width: 90%"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-header">
+                <span class="skill-name">MongoDB / Redis</span
+                ><span class="skill-level">Advanced</span>
+              </div>
+              <div class="skill-bar"><div class="skill-fill" style="width: 80%"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-header">
+                <span class="skill-name">AWS (EC2, S3, Lambda)</span
+                ><span class="skill-level">Advanced</span>
+              </div>
+              <div class="skill-bar"><div class="skill-fill" style="width: 78%"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-header">
+                <span class="skill-name">GCP (Cloud Run, Vision)</span
+                ><span class="skill-level">Proficient</span>
+              </div>
+              <div class="skill-bar"><div class="skill-fill" style="width: 72%"></div></div>
+            </div>
+          </div>
+
+          <div class="skill-category">
+            <h3><span class="cat-icon">🚀</span> DevOps & Tools</h3>
+            <div class="skill-item">
+              <div class="skill-header">
+                <span class="skill-name">Docker / Nginx</span
+                ><span class="skill-level">Advanced</span>
+              </div>
+              <div class="skill-bar"><div class="skill-fill" style="width: 85%"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-header">
+                <span class="skill-name">CI/CD (GitHub Actions)</span
+                ><span class="skill-level">Advanced</span>
+              </div>
+              <div class="skill-bar"><div class="skill-fill" style="width: 82%"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-header">
+                <span class="skill-name">Git / GitHub / GitLab</span
+                ><span class="skill-level">Expert</span>
+              </div>
+              <div class="skill-bar"><div class="skill-fill" style="width: 92%"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-header">
+                <span class="skill-name">Agile / Scrum / Leadership</span
+                ><span class="skill-level">Expert</span>
+              </div>
+              <div class="skill-bar"><div class="skill-fill" style="width: 90%"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tech-tags fade-in delay-2" style="margin-top: 2rem">
+          <span class="tech-tag">TypeScript</span>
+          <span class="tech-tag">React 19</span>
+          <span class="tech-tag">Next.js 15</span>
+          <span class="tech-tag">NestJS</span>
+          <span class="tech-tag">Node.js</span>
+          <span class="tech-tag">Express</span>
+          <span class="tech-tag">GraphQL</span>
+          <span class="tech-tag">PostgreSQL</span>
+          <span class="tech-tag">Prisma</span>
+          <span class="tech-tag">MongoDB</span>
+          <span class="tech-tag">Redis</span>
+          <span class="tech-tag">React Native</span>
+          <span class="tech-tag">Expo</span>
+          <span class="tech-tag">Tailwind CSS</span>
+          <span class="tech-tag">Docker</span>
+          <span class="tech-tag">AWS</span>
+          <span class="tech-tag">GCP</span>
+          <span class="tech-tag">Nginx</span>
+          <span class="tech-tag">CI/CD</span>
+          <span class="tech-tag">Linux</span>
+          <span class="tech-tag">C#</span>
+          <span class="tech-tag">.NET</span>
+          <span class="tech-tag">VBA</span>
+          <span class="tech-tag">Sage FTC</span>
+        </div>
+      </div>
     </section>
 
     <!-- Experience -->
     <section id="experience">
-        <div class="section-container">
-            <div class="section-header fade-in">
-                <span class="section-label">Career Path</span>
-                <h2 class="section-title">Professional Experience</h2>
-                <p class="section-desc">From enterprise IT management to full-stack architecture across three continents.</p>
-            </div>
-
-            <div class="timeline">
-                <div class="timeline-item fade-in">
-                    <div class="timeline-header">
-                        <span class="timeline-role">IT Department Manager & Team Lead</span>
-                        <span class="timeline-date">Feb 2024 — Present</span>
-                    </div>
-                    <div class="timeline-company">Transfergratis — Cameroon (Hybrid)</div>
-                    <div class="timeline-desc">
-                        <ul>
-                            <li>Spearheaded IT department overhaul, increasing team productivity by <strong>50%</strong> through Agile workflows and code quality standards.</li>
-                            <li>Architected the <strong>ROBOT</strong> Android application automating mobile money operations, slashing transaction errors by <strong>70%</strong>.</li>
-                            <li>Led full-stack maintenance of flagship web platform, iOS/Android apps, and internal dashboard.</li>
-                            <li>Served as primary technical liaison between engineering and business units.</li>
-                        </ul>
-                        <div class="timeline-tags">
-                            <span class="timeline-tag">React Native</span>
-                            <span class="timeline-tag">NestJS</span>
-                            <span class="timeline-tag">Node.js</span>
-                            <span class="timeline-tag">Team Leadership</span>
-                            <span class="timeline-tag">Fintech</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="timeline-item fade-in">
-                    <div class="timeline-header">
-                        <span class="timeline-role">Full Stack Developer (.NET / Node.js / React)</span>
-                        <span class="timeline-date">May 2022 — Aug 2024</span>
-                    </div>
-                    <div class="timeline-company">Group Pash Inc. — Quebec, Canada (Remote)</div>
-                    <div class="timeline-desc">
-                        <ul>
-                            <li>Engineered a <strong>VIN detection microservice</strong> using Node.js/Express + Google Cloud Vision API for automated vehicle identification.</li>
-                            <li>Established CI/CD pipelines for zero-downtime deployment on <strong>Google Cloud Run</strong>.</li>
-                            <li>Built REST API backends in Express.js and C# .NET for high-volume automotive data processing.</li>
-                            <li>Developed and maintained full UI/UX for <em>pashmotors.com</em> and <em>devinspector.pashmotors.com</em>.</li>
-                        </ul>
-                        <div class="timeline-tags">
-                            <span class="timeline-tag">Node.js</span>
-                            <span class="timeline-tag">Express</span>
-                            <span class="timeline-tag">C# .NET</span>
-                            <span class="timeline-tag">React</span>
-                            <span class="timeline-tag">GCP</span>
-                            <span class="timeline-tag">CI/CD</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="timeline-item fade-in">
-                    <div class="timeline-header">
-                        <span class="timeline-role">Software Engineer Consultant</span>
-                        <span class="timeline-date">Dec 2023 — Mar 2025</span>
-                    </div>
-                    <div class="timeline-company">CCRC SARL — Douala, Cameroon (Hybrid)</div>
-                    <div class="timeline-desc">
-                        <ul>
-                            <li>Designed and deployed <strong>"Expenses Management"</strong>, a multi-platform app (web, mobile, desktop) streamlining expense workflows from request to accounting.</li>
-                            <li>Managed full DevOps lifecycle: VPS, Nginx, SSL, domain, database provisioning.</li>
-                            <li>Integrated <strong>Sage FTC</strong> cloud solution for secure remote BI access to ERP data.</li>
-                        </ul>
-                        <div class="timeline-tags">
-                            <span class="timeline-tag">Full Stack</span>
-                            <span class="timeline-tag">DevOps</span>
-                            <span class="timeline-tag">ERP Integration</span>
-                            <span class="timeline-tag">Sage FTC</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="timeline-item fade-in">
-                    <div class="timeline-header">
-                        <span class="timeline-role">Freelance Software Developer</span>
-                        <span class="timeline-date">Feb 2019 — Present</span>
-                    </div>
-                    <div class="timeline-company">Various Clients — Deloitte, UNHCR, Kiama SA, Eneo/SONATREL</div>
-                    <div class="timeline-desc">
-                        <ul>
-                            <li><strong>SmartEEM</strong>: Real-time remote monitoring platform for electrical equipment (Eneo/SONATREL Cameroon), reducing maintenance costs and anticipating breakdowns.</li>
-                            <li><strong>SALITE</strong>: Offline-first cross-platform sales management system for SMEs.</li>
-                            <li><strong>CCGM Online Voting System</strong> (Next.js 15, Payload CMS, PostgreSQL): Bank-level security (MFA, AES-256), real-time results, full audit trails, multilingual support.</li>
-                            <li><strong>GEDDVIT</strong>: Frontend stabilization for a business process dematerialization platform.</li>
-                        </ul>
-                        <div class="timeline-tags">
-                            <span class="timeline-tag">Next.js</span>
-                            <span class="timeline-tag">Payload CMS</span>
-                            <span class="timeline-tag">IoT</span>
-                            <span class="timeline-tag">Offline-First</span>
-                            <span class="timeline-tag">Security</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="timeline-item fade-in">
-                    <div class="timeline-header">
-                        <span class="timeline-role">IT Manager</span>
-                        <span class="timeline-date">Jun 2015 — Oct 2019</span>
-                    </div>
-                    <div class="timeline-company">Groupe SADIPIN — Douala, Cameroon</div>
-                    <div class="timeline-desc">
-                        <ul>
-                            <li>Led IT operations for a diversified industrial group: <strong>7 companies, 16 sites, 6 regions</strong>.</li>
-                            <li>Developed <strong>30+ custom modules</strong> in C# (Windows Forms) and Excel VBA, automating financial reporting and supply chain workflows.</li>
-                            <li>Reduced manual effort by <strong>40%</strong> and improved data accuracy across all subsidiaries.</li>
-                        </ul>
-                        <div class="timeline-tags">
-                            <span class="timeline-tag">C#</span>
-                            <span class="timeline-tag">Excel VBA</span>
-                            <span class="timeline-tag">ERP</span>
-                            <span class="timeline-tag">IT Management</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      <div class="section-container">
+        <div class="section-header fade-in">
+          <span class="section-label">Career Path</span>
+          <h2 class="section-title">Professional Experience</h2>
+          <p class="section-desc">
+            From enterprise IT management to full-stack architecture across three continents.
+          </p>
         </div>
+
+        <div class="timeline">
+          <div class="timeline-item fade-in">
+            <div class="timeline-header">
+              <span class="timeline-role">IT Department Manager & Team Lead</span>
+              <span class="timeline-date">Feb 2024 — Present</span>
+            </div>
+            <div class="timeline-company">Transfergratis — Cameroon (Hybrid)</div>
+            <div class="timeline-desc">
+              <ul>
+                <li>
+                  Spearheaded IT department overhaul, increasing team productivity by
+                  <strong>50%</strong> through Agile workflows and code quality standards.
+                </li>
+                <li>
+                  Architected the <strong>ROBOT</strong> Android application automating mobile money
+                  operations, slashing transaction errors by <strong>70%</strong>.
+                </li>
+                <li>
+                  Led full-stack maintenance of flagship web platform, iOS/Android apps, and
+                  internal dashboard.
+                </li>
+                <li>Served as primary technical liaison between engineering and business units.</li>
+              </ul>
+              <div class="timeline-tags">
+                <span class="timeline-tag">React Native</span>
+                <span class="timeline-tag">NestJS</span>
+                <span class="timeline-tag">Node.js</span>
+                <span class="timeline-tag">Team Leadership</span>
+                <span class="timeline-tag">Fintech</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item fade-in">
+            <div class="timeline-header">
+              <span class="timeline-role">Full Stack Developer (.NET / Node.js / React)</span>
+              <span class="timeline-date">May 2022 — Aug 2024</span>
+            </div>
+            <div class="timeline-company">Group Pash Inc. — Quebec, Canada (Remote)</div>
+            <div class="timeline-desc">
+              <ul>
+                <li>
+                  Engineered a <strong>VIN detection microservice</strong> using Node.js/Express +
+                  Google Cloud Vision API for automated vehicle identification.
+                </li>
+                <li>
+                  Established CI/CD pipelines for zero-downtime deployment on
+                  <strong>Google Cloud Run</strong>.
+                </li>
+                <li>
+                  Built REST API backends in Express.js and C# .NET for high-volume automotive data
+                  processing.
+                </li>
+                <li>
+                  Developed and maintained full UI/UX for <em>pashmotors.com</em> and
+                  <em>devinspector.pashmotors.com</em>.
+                </li>
+              </ul>
+              <div class="timeline-tags">
+                <span class="timeline-tag">Node.js</span>
+                <span class="timeline-tag">Express</span>
+                <span class="timeline-tag">C# .NET</span>
+                <span class="timeline-tag">React</span>
+                <span class="timeline-tag">GCP</span>
+                <span class="timeline-tag">CI/CD</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item fade-in">
+            <div class="timeline-header">
+              <span class="timeline-role">Software Engineer Consultant</span>
+              <span class="timeline-date">Dec 2023 — Mar 2025</span>
+            </div>
+            <div class="timeline-company">CCRC SARL — Douala, Cameroon (Hybrid)</div>
+            <div class="timeline-desc">
+              <ul>
+                <li>
+                  Designed and deployed <strong>"Expenses Management"</strong>, a multi-platform app
+                  (web, mobile, desktop) streamlining expense workflows from request to accounting.
+                </li>
+                <li>
+                  Managed full DevOps lifecycle: VPS, Nginx, SSL, domain, database provisioning.
+                </li>
+                <li>
+                  Integrated <strong>Sage FTC</strong> cloud solution for secure remote BI access to
+                  ERP data.
+                </li>
+              </ul>
+              <div class="timeline-tags">
+                <span class="timeline-tag">Full Stack</span>
+                <span class="timeline-tag">DevOps</span>
+                <span class="timeline-tag">ERP Integration</span>
+                <span class="timeline-tag">Sage FTC</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item fade-in">
+            <div class="timeline-header">
+              <span class="timeline-role">Freelance Software Developer</span>
+              <span class="timeline-date">Feb 2019 — Present</span>
+            </div>
+            <div class="timeline-company">
+              Various Clients — Deloitte, UNHCR, Kiama SA, Eneo/SONATREL
+            </div>
+            <div class="timeline-desc">
+              <ul>
+                <li>
+                  <strong>SmartEEM</strong>: Real-time remote monitoring platform for electrical
+                  equipment (Eneo/SONATREL Cameroon), reducing maintenance costs and anticipating
+                  breakdowns.
+                </li>
+                <li>
+                  <strong>SALITE</strong>: Offline-first cross-platform sales management system for
+                  SMEs.
+                </li>
+                <li>
+                  <strong>CCGM Online Voting System</strong> (Next.js 15, Payload CMS, PostgreSQL):
+                  Bank-level security (MFA, AES-256), real-time results, full audit trails,
+                  multilingual support.
+                </li>
+                <li>
+                  <strong>GEDDVIT</strong>: Frontend stabilization for a business process
+                  dematerialization platform.
+                </li>
+              </ul>
+              <div class="timeline-tags">
+                <span class="timeline-tag">Next.js</span>
+                <span class="timeline-tag">Payload CMS</span>
+                <span class="timeline-tag">IoT</span>
+                <span class="timeline-tag">Offline-First</span>
+                <span class="timeline-tag">Security</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item fade-in">
+            <div class="timeline-header">
+              <span class="timeline-role">IT Manager</span>
+              <span class="timeline-date">Jun 2015 — Oct 2019</span>
+            </div>
+            <div class="timeline-company">Groupe SADIPIN — Douala, Cameroon</div>
+            <div class="timeline-desc">
+              <ul>
+                <li>
+                  Led IT operations for a diversified industrial group:
+                  <strong>7 companies, 16 sites, 6 regions</strong>.
+                </li>
+                <li>
+                  Developed <strong>30+ custom modules</strong> in C# (Windows Forms) and Excel VBA,
+                  automating financial reporting and supply chain workflows.
+                </li>
+                <li>
+                  Reduced manual effort by <strong>40%</strong> and improved data accuracy across
+                  all subsidiaries.
+                </li>
+              </ul>
+              <div class="timeline-tags">
+                <span class="timeline-tag">C#</span>
+                <span class="timeline-tag">Excel VBA</span>
+                <span class="timeline-tag">ERP</span>
+                <span class="timeline-tag">IT Management</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Projects -->
-    <section id="projects" style="background: var(--bg-secondary);">
-        <div class="section-container">
-            <div class="section-header fade-in">
-                <span class="section-label">Portfolio</span>
-                <h2 class="section-title">Featured Projects</h2>
-                <p class="section-desc">Production-grade systems built for scale, security, and real-world impact.</p>
-            </div>
-
-            <div class="projects-grid">
-                <div class="project-card fade-in">
-                    <div class="project-header">
-                        <div class="project-icon">🤖</div>
-                        <div class="project-links">
-                            <a href="#" title="Private Repository">🔒</a>
-                        </div>
-                    </div>
-                    <div class="project-body">
-                        <h3>ROBOT — Mobile Money Automation</h3>
-                        <p>Android-based automation layer for mobile money operations. Reduced transaction errors by 70% and stabilized financial flows for a fintech serving thousands of daily users.</p>
-                    </div>
-                    <div class="project-footer">
-                        <span class="project-tech">React Native</span>
-                        <span class="project-tech">Android</span>
-                        <span class="project-tech">Node.js</span>
-                        <span class="project-tech">Fintech</span>
-                    </div>
-                </div>
-
-                <div class="project-card fade-in delay-1">
-                    <div class="project-header">
-                        <div class="project-icon">🗳️</div>
-                        <div class="project-links">
-                            <a href="#" title="Private Repository">🔒</a>
-                        </div>
-                    </div>
-                    <div class="project-body">
-                        <h3>CCGM Online Voting System</h3>
-                        <p>Global online voting platform for an international association. Bank-level security with MFA, AES-256 encryption, real-time results, full audit trails, and headless CMS customization.</p>
-                    </div>
-                    <div class="project-footer">
-                        <span class="project-tech">Next.js 15</span>
-                        <span class="project-tech">Payload CMS</span>
-                        <span class="project-tech">PostgreSQL</span>
-                        <span class="project-tech">Security</span>
-                    </div>
-                </div>
-
-                <div class="project-card fade-in delay-2">
-                    <div class="project-header">
-                        <div class="project-icon">⚡</div>
-                        <div class="project-links">
-                            <a href="#" title="Private Repository">🔒</a>
-                        </div>
-                    </div>
-                    <div class="project-body">
-                        <h3>SmartEEM — Industrial IoT Monitoring</h3>
-                        <p>Real-time remote monitoring platform for electrical transformers and substations. Enables predictive maintenance, reduces downtime, and cuts operational costs for Cameroon's national energy utility.</p>
-                    </div>
-                    <div class="project-footer">
-                        <span class="project-tech">IoT</span>
-                        <span class="project-tech">Real-time</span>
-                        <span class="project-tech">Dashboard</span>
-                        <span class="project-tech">Energy</span>
-                    </div>
-                </div>
-
-                <div class="project-card fade-in">
-                    <div class="project-header">
-                        <div class="project-icon">📊</div>
-                        <div class="project-links">
-                            <a href="#" title="Private Repository">🔒</a>
-                        </div>
-                    </div>
-                    <div class="project-body">
-                        <h3>SALITE — Offline-First Sales Platform</h3>
-                        <p>Cross-platform sales management system for SMEs. Works fully offline with local SQLite sync, then reconciles with cloud backend when connectivity returns. Built for emerging markets with unreliable networks.</p>
-                    </div>
-                    <div class="project-footer">
-                        <span class="project-tech">React Native</span>
-                        <span class="project-tech">Offline-First</span>
-                        <span class="project-tech">SQLite</span>
-                        <span class="project-tech">SME</span>
-                    </div>
-                </div>
-
-                <div class="project-card fade-in delay-1">
-                    <div class="project-header">
-                        <div class="project-icon">🚗</div>
-                        <div class="project-links">
-                            <a href="#" title="Private Repository">🔒</a>
-                        </div>
-                    </div>
-                    <div class="project-body">
-                        <h3>VIN Detection Service</h3>
-                        <p>Microservice for automated Vehicle Identification Number extraction from images using Google Cloud Vision API. Integrated into an automotive B2B platform for North American dealers.</p>
-                    </div>
-                    <div class="project-footer">
-                        <span class="project-tech">Node.js</span>
-                        <span class="project-tech">Express</span>
-                        <span class="project-tech">GCP Vision API</span>
-                        <span class="project-tech">Microservice</span>
-                    </div>
-                </div>
-
-                <div class="project-card fade-in delay-2">
-                    <div class="project-header">
-                        <div class="project-icon">💰</div>
-                        <div class="project-links">
-                            <a href="#" title="Private Repository">🔒</a>
-                        </div>
-                    </div>
-                    <div class="project-body">
-                        <h3>Expenses Management Suite</h3>
-                        <p>Multi-platform expense workflow system (web + mobile + desktop). Covers request, approval, accounting, and reporting. Integrated with Sage FTC for ERP synchronization.</p>
-                    </div>
-                    <div class="project-footer">
-                        <span class="project-tech">Full Stack</span>
-                        <span class="project-tech">Sage FTC</span>
-                        <span class="project-tech">ERP</span>
-                        <span class="project-tech">Multi-platform</span>
-                    </div>
-                </div>
-            </div>
+    <section id="projects" style="background: var(--bg-secondary)">
+      <div class="section-container">
+        <div class="section-header fade-in">
+          <span class="section-label">Portfolio</span>
+          <h2 class="section-title">Featured Projects</h2>
+          <p class="section-desc">
+            Production-grade systems built for scale, security, and real-world impact.
+          </p>
         </div>
+
+        <div class="projects-grid">
+          <div class="project-card fade-in">
+            <div class="project-header">
+              <div class="project-icon">🤖</div>
+              <div class="project-links">
+                <a href="#" title="Private Repository">🔒</a>
+              </div>
+            </div>
+            <div class="project-body">
+              <h3>ROBOT — Mobile Money Automation</h3>
+              <p>
+                Android-based automation layer for mobile money operations. Reduced transaction
+                errors by 70% and stabilized financial flows for a fintech serving thousands of
+                daily users.
+              </p>
+            </div>
+            <div class="project-footer">
+              <span class="project-tech">React Native</span>
+              <span class="project-tech">Android</span>
+              <span class="project-tech">Node.js</span>
+              <span class="project-tech">Fintech</span>
+            </div>
+          </div>
+
+          <div class="project-card fade-in delay-1">
+            <div class="project-header">
+              <div class="project-icon">🗳️</div>
+              <div class="project-links">
+                <a href="#" title="Private Repository">🔒</a>
+              </div>
+            </div>
+            <div class="project-body">
+              <h3>CCGM Online Voting System</h3>
+              <p>
+                Global online voting platform for an international association. Bank-level security
+                with MFA, AES-256 encryption, real-time results, full audit trails, and headless CMS
+                customization.
+              </p>
+            </div>
+            <div class="project-footer">
+              <span class="project-tech">Next.js 15</span>
+              <span class="project-tech">Payload CMS</span>
+              <span class="project-tech">PostgreSQL</span>
+              <span class="project-tech">Security</span>
+            </div>
+          </div>
+
+          <div class="project-card fade-in delay-2">
+            <div class="project-header">
+              <div class="project-icon">⚡</div>
+              <div class="project-links">
+                <a href="#" title="Private Repository">🔒</a>
+              </div>
+            </div>
+            <div class="project-body">
+              <h3>SmartEEM — Industrial IoT Monitoring</h3>
+              <p>
+                Real-time remote monitoring platform for electrical transformers and substations.
+                Enables predictive maintenance, reduces downtime, and cuts operational costs for
+                Cameroon's national energy utility.
+              </p>
+            </div>
+            <div class="project-footer">
+              <span class="project-tech">IoT</span>
+              <span class="project-tech">Real-time</span>
+              <span class="project-tech">Dashboard</span>
+              <span class="project-tech">Energy</span>
+            </div>
+          </div>
+
+          <div class="project-card fade-in">
+            <div class="project-header">
+              <div class="project-icon">📊</div>
+              <div class="project-links">
+                <a href="#" title="Private Repository">🔒</a>
+              </div>
+            </div>
+            <div class="project-body">
+              <h3>SALITE — Offline-First Sales Platform</h3>
+              <p>
+                Cross-platform sales management system for SMEs. Works fully offline with local
+                SQLite sync, then reconciles with cloud backend when connectivity returns. Built for
+                emerging markets with unreliable networks.
+              </p>
+            </div>
+            <div class="project-footer">
+              <span class="project-tech">React Native</span>
+              <span class="project-tech">Offline-First</span>
+              <span class="project-tech">SQLite</span>
+              <span class="project-tech">SME</span>
+            </div>
+          </div>
+
+          <div class="project-card fade-in delay-1">
+            <div class="project-header">
+              <div class="project-icon">🚗</div>
+              <div class="project-links">
+                <a href="#" title="Private Repository">🔒</a>
+              </div>
+            </div>
+            <div class="project-body">
+              <h3>VIN Detection Service</h3>
+              <p>
+                Microservice for automated Vehicle Identification Number extraction from images
+                using Google Cloud Vision API. Integrated into an automotive B2B platform for North
+                American dealers.
+              </p>
+            </div>
+            <div class="project-footer">
+              <span class="project-tech">Node.js</span>
+              <span class="project-tech">Express</span>
+              <span class="project-tech">GCP Vision API</span>
+              <span class="project-tech">Microservice</span>
+            </div>
+          </div>
+
+          <div class="project-card fade-in delay-2">
+            <div class="project-header">
+              <div class="project-icon">💰</div>
+              <div class="project-links">
+                <a href="#" title="Private Repository">🔒</a>
+              </div>
+            </div>
+            <div class="project-body">
+              <h3>Expenses Management Suite</h3>
+              <p>
+                Multi-platform expense workflow system (web + mobile + desktop). Covers request,
+                approval, accounting, and reporting. Integrated with Sage FTC for ERP
+                synchronization.
+              </p>
+            </div>
+            <div class="project-footer">
+              <span class="project-tech">Full Stack</span>
+              <span class="project-tech">Sage FTC</span>
+              <span class="project-tech">ERP</span>
+              <span class="project-tech">Multi-platform</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Contact -->
     <section id="contact">
-        <div class="section-container">
-            <div class="section-header fade-in">
-                <span class="section-label">Get In Touch</span>
-                <h2 class="section-title">Let's Build Something Great</h2>
-                <p class="section-desc">Open to senior and lead roles worldwide. Remote, hybrid, or relocation.</p>
-            </div>
+      <div class="section-container">
+        <div class="section-header fade-in">
+          <span class="section-label">Get In Touch</span>
+          <h2 class="section-title">Let's Build Something Great</h2>
+          <p class="section-desc">
+            Open to senior and lead roles worldwide. Remote, hybrid, or relocation.
+          </p>
+        </div>
 
-            <div class="contact-grid">
-                <div class="contact-info fade-in">
-                    <h3>Contact Information</h3>
-                    <p>I typically respond within 24 hours. For fastest replies, use LinkedIn or email.</p>
+        <div class="contact-grid">
+          <div class="contact-info fade-in">
+            <h3>Contact Information</h3>
+            <p>I typically respond within 24 hours. For fastest replies, use LinkedIn or email.</p>
 
-                    <div class="contact-links">
-                        <a href="mailto:borisfouomen14@gmail.com" class="contact-link">
-                            <div class="link-icon">✉️</div>
-                            <div>
-                                <div class="link-text">borisfouomen14@gmail.com</div>
-                                <div class="link-sub">Send me an email</div>
-                            </div>
-                        </a>
-                        <a href="https://linkedin.com/in/boris-fouomene" target="_blank" class="contact-link">
-                            <div class="link-icon">💼</div>
-                            <div>
-                                <div class="link-text">linkedin.com/in/boris-fouomene</div>
-                                <div class="link-sub">Connect on LinkedIn</div>
-                            </div>
-                        </a>
-                        <a href="https://github.com/borisfouomene" target="_blank" class="contact-link">
-                            <div class="link-icon">💻</div>
-                            <div>
-                                <div class="link-text">github.com/borisfouomene</div>
-                                <div class="link-sub">View my code</div>
-                            </div>
-                        </a>
-                        <!--a href="tel:+237699965076" class="contact-link">
+            <div class="contact-links">
+              <a href="mailto:borisfouomen14@gmail.com" class="contact-link">
+                <div class="link-icon">✉️</div>
+                <div>
+                  <div class="link-text">borisfouomen14@gmail.com</div>
+                  <div class="link-sub">Send me an email</div>
+                </div>
+              </a>
+              <a href="https://linkedin.com/in/boris-fouomene" target="_blank" class="contact-link">
+                <div class="link-icon">💼</div>
+                <div>
+                  <div class="link-text">linkedin.com/in/boris-fouomene</div>
+                  <div class="link-sub">Connect on LinkedIn</div>
+                </div>
+              </a>
+              <a href="https://github.com/borisfouomene" target="_blank" class="contact-link">
+                <div class="link-icon">💻</div>
+                <div>
+                  <div class="link-text">github.com/borisfouomene</div>
+                  <div class="link-sub">View my code</div>
+                </div>
+              </a>
+              <!--a href="tel:+237699965076" class="contact-link">
                             <div class="link-icon">📱</div>
                             <div>
                                 <div class="link-text">+6</div>
                                 <div class="link-sub">WhatsApp / Phone</div>
                             </div>
                     </a-->
-                    </div>
-                </div>
-
-                <div class="availability-card fade-in delay-2">
-                    <h4>✅ Availability & Requirements</h4>
-                    <div class="availability-item">
-                        <span class="check">✓</span>
-                        <span>Available immediately for full-time roles</span>
-                    </div>
-                    <div class="availability-item">
-                        <span class="check">✓</span>
-                        <span>Open to Remote, Hybrid, or On-site + Relocation</span>
-                    </div>
-                    <div class="availability-item">
-                        <span class="check">✓</span>
-                        <span>EU Blue Card Eligible (highly skilled worker)</span>
-                    </div>
-                    <div class="availability-item">
-                        <span class="check">✓</span>
-                        <span>WES Verified Academic Credentials</span>
-                    </div>
-                    <div class="availability-item">
-                        <span class="check">✓</span>
-                        <span>Fluent in French (Native) & English (Advanced)</span>
-                    </div>
-                    <div class="availability-item">
-                        <span class="check">✓</span>
-                        <span>Target roles: Senior Engineer, Tech Lead, Engineering Manager</span>
-                    </div>
-                    <br>
-                    <a href="mailto:borisfouomen14@gmail.com?subject=Interview%20Request%20-%20Senior%20Engineer" class="btn btn-primary" style="width: 100%; justify-content: center;">
-                        Schedule an Interview →
-                    </a>
-                </div>
             </div>
+          </div>
+
+          <div class="availability-card fade-in delay-2">
+            <h4>✅ Availability & Requirements</h4>
+            <div class="availability-item">
+              <span class="check">✓</span>
+              <span>Available immediately for full-time roles</span>
+            </div>
+            <div class="availability-item">
+              <span class="check">✓</span>
+              <span>Open to Remote, Hybrid, or On-site + Relocation</span>
+            </div>
+            <div class="availability-item">
+              <span class="check">✓</span>
+              <span>WES Verified Academic Credentials</span>
+            </div>
+            <div class="availability-item">
+              <span class="check">✓</span>
+              <span>Fluent in French (Native) & English (Advanced)</span>
+            </div>
+            <div class="availability-item">
+              <span class="check">✓</span>
+              <span>Target roles: Senior Engineer, Tech Lead, Engineering Manager</span>
+            </div>
+            <br />
+            <a
+              href="mailto:borisfouomen14@gmail.com?subject=Interview%20Request%20-%20Senior%20Engineer"
+              class="btn btn-primary"
+              style="width: 100%; justify-content: center"
+            >
+              Schedule an Interview →
+            </a>
+          </div>
         </div>
+      </div>
     </section>
 
     <!-- Footer -->
     <footer>
-        <p>© 2026 Boris Fouomene. Built with raw HTML/CSS. No frameworks needed when you know the fundamentals.</p>
-        <p style="margin-top: 0.5rem; font-size: 0.8rem;">Senior Software Engineer · Full Stack Architect · 12+ Years · Open to Work Worldwide</p>
+      <p>
+        © 2026 Boris Fouomene. Built with raw HTML/CSS. No frameworks needed when you know the
+        fundamentals.
+      </p>
+      <p style="margin-top: 0.5rem; font-size: 0.8rem">
+        Senior Software Engineer · Full Stack Architect · 12+ Years · Open to Work Worldwide
+      </p>
     </footer>
 
     <script>
-        // Simple intersection observer for fade-in animations
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.animationPlayState = 'running';
-                    entry.target.style.opacity = '1';
-                }
-            });
-        }, { threshold: 0.1 });
+      // Simple intersection observer for fade-in animations
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.style.animationPlayState = 'running'
+              entry.target.style.opacity = '1'
+            }
+          })
+        },
+        { threshold: 0.1 },
+      )
 
-        document.querySelectorAll('.fade-in').forEach(el => {
-            el.style.opacity = '0';
-            el.style.animationPlayState = 'paused';
-            observer.observe(el);
-        });
+      document.querySelectorAll('.fade-in').forEach((el) => {
+        el.style.opacity = '0'
+        el.style.animationPlayState = 'paused'
+        observer.observe(el)
+      })
 
-        // Mobile menu
-        document.querySelector('.mobile-menu-btn').addEventListener('click', () => {
-            const nav = document.querySelector('.nav-links');
-            nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
-            nav.style.position = 'absolute';
-            nav.style.top = '100%';
-            nav.style.left = '0';
-            nav.style.right = '0';
-            nav.style.flexDirection = 'column';
-            nav.style.background = 'var(--bg-primary)';
-            nav.style.padding = '1rem 2rem';
-            nav.style.borderBottom = '1px solid var(--border)';
-        });
+      // Mobile menu
+      document.querySelector('.mobile-menu-btn').addEventListener('click', () => {
+        const nav = document.querySelector('.nav-links')
+        nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex'
+        nav.style.position = 'absolute'
+        nav.style.top = '100%'
+        nav.style.left = '0'
+        nav.style.right = '0'
+        nav.style.flexDirection = 'column'
+        nav.style.background = 'var(--bg-primary)'
+        nav.style.padding = '1rem 2rem'
+        nav.style.borderBottom = '1px solid var(--border)'
+      })
     </script>
-</body>
+  </body>
 </html>
